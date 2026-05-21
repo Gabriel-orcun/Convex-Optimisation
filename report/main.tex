@@ -1,0 +1,138 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\geometry{margin=2.5cm}
+
+\title{Comparing optimization algorithms for image classification on CIFAR-10:\\
+       a convex / non-convex perspective}
+\author{Ilyan \textsc{Debbah} \and Alexan \textsc{Lastname} \and Gabriel \textsc{Lastname} \and Thi-Tho \textsc{Lastname}\\
+        \small EFREI — Convex optimization, M.~B\textsc{enedetti}, 2026}
+\date{June 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We study the empirical behaviour of several first- and second-order optimization
+algorithms (gradient descent, SGD with momentum, Nesterov, AdaGrad, RMSProp,
+Adam, L-BFGS) on the CIFAR-10 image classification task. To bridge the gap
+between the convex theory developed in the course and the predominantly
+non-convex losses used in deep learning, we run the same optimizers in two
+regimes: (i)~a strictly convex one --- multinomial logistic regression and
+linear SVM on raw pixels --- where the rates predicted by the theory hold, and
+(ii)~a non-convex one --- a small convolutional network --- where they do not.
+The comparison highlights where the convex theory transfers and where it
+breaks down.
+\end{abstract}
+
+\tableofcontents
+
+% =============================================================================
+\section{Introduction}
+% =============================================================================
+% TODO:
+% - Motivate: ML losses are usually non-convex, yet we train them with
+%   algorithms designed for the convex case. Why does it work?
+% - Briefly introduce the dataset (CIFAR-10) and why we picked it (richer
+%   than MNIST, enough to stress optimizers).
+% - State the contribution: a side-by-side comparison of the same optimizers
+%   on a convex baseline and a non-convex CNN, on the same data.
+
+% =============================================================================
+\section{Background and problem formulation}
+% =============================================================================
+
+\subsection{Convex optimization in machine learning}
+% TODO:
+% - Recall the empirical risk minimization formulation.
+% - Recall convex functions, smoothness L, strong convexity mu, condition kappa.
+% - State the rates we will compare against: O(1/k) for GD on smooth convex,
+%   O(1/k^2) for Nesterov, linear rate for strongly convex, quadratic local
+%   rate for Newton.
+
+\subsection{The CIFAR-10 dataset}
+% TODO:
+% - 60k 32x32 colour images, 10 classes, balanced.
+% - Refer to fig:dataset_samples.
+
+% =============================================================================
+\section{Models}
+% =============================================================================
+
+\subsection{Convex models}
+\subsubsection{Multinomial logistic regression}
+% L(W) = -1/N sum log softmax_y(Wx) + l2/2 ||W||^2
+% Smoothness, strong convexity from the L2 term.
+
+\subsubsection{Linear SVM (squared hinge)}
+% L(W) = 1/N sum_i sum_{j != y_i} max(0, s_j - s_y + 1)^2 + l2/2 ||W||^2
+
+\subsection{Non-convex model: a small CNN}
+% Architecture (see src/cnn_model.py); ~200k parameters.
+% Non-convex because of (i) ReLU non-linearities, (ii) composition of layers.
+
+% =============================================================================
+\section{Optimization algorithms studied}
+% =============================================================================
+% For each algorithm: update rule, known convergence rate in the convex
+% setting, intuition for behaviour on non-convex problems, hyperparameters.
+
+\subsection{Gradient descent and stochastic gradient descent}
+\subsection{Momentum and Nesterov accelerated gradient}
+\subsection{Adaptive methods: AdaGrad, RMSProp, Adam}
+\subsection{Quasi-Newton: L-BFGS}
+
+% =============================================================================
+\section{Experimental protocol}
+% =============================================================================
+% - Hardware, framework versions, seeds.
+% - Train/test splits.
+% - Hyperparameter search procedure (grid for lr, momentum).
+% - Metrics: training loss, gradient norm, test accuracy, wall-clock time.
+
+% =============================================================================
+\section{Results}
+% =============================================================================
+
+\subsection{Convex regime}
+% Figures: loss curves (log scale), gradient norm, test accuracy table.
+% Comments: empirical rates vs theory, role of L2, conditioning.
+
+\subsection{Non-convex regime}
+% Same figures. Discussion of differences with the convex regime.
+% Why does the gradient norm not go to zero?
+% Why does Adam dominate early epochs?
+% Generalization comments (SGD+momentum vs Adam).
+
+\subsection{Cross-regime comparison}
+% Side-by-side table summarising the ranking of optimizers in each regime.
+% Discussion: where convex theory transfers, where it breaks down.
+
+% =============================================================================
+\section{Discussion: convex theory facing non-convex losses}
+% =============================================================================
+% Required by the project brief (section 1.2 of the assignment).
+% - Why first-order methods still work on non-convex losses (overparametrization,
+%   benign non-convexity, escape from saddle points).
+% - Why 2nd-order methods do not scale to deep models (Hessian-vector cost,
+%   non-positive-definite Hessian).
+% - Mention recent work that brings some convergence guarantees back into the
+%   non-convex setting (e.g. NTK regime, PL inequality).
+
+% =============================================================================
+\section{Conclusion}
+% =============================================================================
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}

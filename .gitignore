@@ -1,5 +1,11 @@
 data/
+results/
+wandb/
 .idea/
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
+*.tex
+PW CNN Correction.ipynb
+cifar10_optimizer_comparison.ipynb
+convex.ipynb

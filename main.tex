@@ -205,37 +205,22 @@ Nous n'effectuons pas de recherche exhaustive du meilleur taux d'apprentissage. 
     \caption{Évolution du taux d'apprentissage par époque}
   \end{figure}
 
-\begin{table}[H]
-  \centering
-  \caption{Rôle des optimiseurs comparés dans l'expérience}
-  \label{tab:optimizer-role}
-  \arrayrulecolor{black}
-  \begin{tabular}{|p{2.5cm}|p{5.5cm}|p{6cm}|}
-    \hline
-    \textbf{Optimiseur} & \textbf{Principe principal} & \textbf{Objectif dans la comparaison} \\
-    \hline
-    SGD
-      & Gradient stochastique simple
-      & Référence de base \\
-    \hline
-    SGD + Momentum
-      & Accumulation d'une direction de descente
-      & Tester l'effet du momentum \\
-    \hline
-    Muon
-      & Orthogonalisation du gradient
-      & Étudier une méthode récente pour couches cachées \\
-    \hline
-    RMSProp
-      & Adaptation par moyenne mobile des gradients
-      & Tester une méthode adaptative stable \\
-    \hline
-    Adam
-      & Momentum + adaptation du second moment
-      & Comparer avec l'optimiseur adaptatif standard \\
-    \hline
-  \end{tabular}
-\end{table}
+  \begin{table}[H]
+    \centering
+    \caption{Hyperparamètres des optimiseurs utilisés}
+    \label{tab:optimizer-hparams}
+    \begin{tabular}{p{3.2cm}p{6.2cm}p{3.2cm}}
+      \toprule
+      \textbf{Optimiseur} & \textbf{Paramètres principaux} & \textbf{LR initial} \\
+      \midrule
+      SGD & Aucun momentum & $10^{-2}$ \\
+      SGD avec momentum & $\mu = 0.9$ & $10^{-2}$ \\
+      Muon & Orthogonalisation Newton-Schulz & $10^{-2}$ \\
+      RMSProp & $\rho = 0.9$, $\epsilon = 10^{-8}$ & $1.39 \times 10^{-3}$ \\
+      Adam & $\beta_1 = 0.9$, $\beta_2 = 0.999$, $\epsilon = 10^{-8}$ & $1.39 \times 10^{-3}$ \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
 
 % \vspace{0.3}
 

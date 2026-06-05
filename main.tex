@@ -480,7 +480,18 @@ cadre expérimental.
 \label{sec:conclusion}
 % ==========================================================
 
-Ce travail a mis en évidence les différences de comportement des optimiseurs classiques sur un problème de classification non convexe. [Résumer les 2-3 conclusions principales]. Ces résultats rappellent que le choix de l'optimiseur ne se réduit pas à sa vitesse de convergence : la géométrie du paysage de perte et la capacité à généraliser sont des critères tout aussi déterminants.
+Ce travail a mis en évidence que le choix de l'optimiseur influence fortement la
+trajectoire d'apprentissage d'un CNN sur CIFAR-10. SGD seul converge de manière
+stable mais reste nettement plus lent, tandis que SGD avec momentum, Adam,
+RMSProp et Muon atteignent plus rapidement de meilleures performances. Les
+résultats montrent aussi qu'une convergence rapide ne suffit pas à juger un
+optimiseur : il faut également tenir compte de la précision finale, de la norme
+des gradients et de l'écart de généralisation.
+
+Dans notre cadre expérimental, les optimiseurs avec momentum ou adaptation du
+taux d'apprentissage offrent le meilleur compromis entre vitesse et performance.
+Les écarts observés restent toutefois dépendants du nombre limité d'époques, des
+hyperparamètres choisis et de l'architecture utilisée.
 
 \newpage
 % ==========================================================
